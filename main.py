@@ -1,14 +1,15 @@
 from playwright.sync_api import sync_playwright
 import time
 from bs4 import BeautifulSoup
-import csv
+from file import save_to_file
 
 try:
+    keyword = input("what do you want to search for?")
 
     p = sync_playwright().start()
     browser = p.chromium.launch(headless=False)
     page = browser.new_page()
-    page.goto("https://www.wanted.co.kr/search?query=devops&tab=position")
+    page.goto(f"https://www.wanted.co.kr/search?query={keyword}&tab=position")
     # page.goto("https://www.wanted.co.kr/search")
     
     # page.get_by_placeholder("검색어를 입력해 주세요.").fill("devops")
@@ -18,7 +19,7 @@ try:
 
     for x in range(3):
         page.keyboard.down("End")
-        time.sleep(3)
+        time.sleep(2)
 
     content = page.content()
     
@@ -38,15 +39,14 @@ try:
         }
         jobs_list.append(job)
 
-    with open("jobs.csv", "w", newline="", encoding="utf-8") as file:  # Use 'with' for better file handling
-        writer = csv.writer(file)
-        writer.writerow(["Title", "Company"])  # Header
+    # with open("jobs.csv", "w", newline="", encoding="utf-8") as file:  # Use 'with' for better file handling
+    #     writer = csv.writer(file)
+    #     writer.writerow(["Title", "Company"])  # Header
 
-        for job in jobs_list:
-            print("test")
-            print(job.values())
-            writer.writerow(job.values())
+    #     for job in jobs_list:
+    #         writer.writerow(job.values())
+
+    save_to_file(keyword, jobs_list)
 
 except Exception as e:
     print(f"An error occurred: {e}")
-
