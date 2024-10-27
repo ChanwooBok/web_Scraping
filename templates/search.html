@@ -5,17 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>searching</title>
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    >
 </head>
 <body>
-    <h1>search results "{{keyword}}"</h1>
-    {% for job in jobs %}
-    <div>
-        <span>{{job.title}}</span>
-        <span>{{job.company_name}}</span>
-        <a href="{{job.link}}">Apply now! &rarr;</a>
-        
+    <main class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">title</th>
+                    <th scope="col">company_name</th>
+                    <th scope="col">Link</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for job in jobs %}
+                <tr>
+                    <td>{{job.title}}</td>
+                    <td>{{job.company_name}}</td>
+                    <td><a href="{{job.link}}">Apply now</a></td>
 
-    </div>
-    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </main>
 </body>
 </html>
