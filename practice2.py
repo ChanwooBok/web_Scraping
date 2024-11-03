@@ -20,8 +20,8 @@ def scrape(url):
     company,position,region = job.find_all("span",class_="company")
     url = job.find("div",class_="tooltip--flag-logo").next_sibling["href"]
     job_data = {
-      "title":title,
-      "company":company.text,
+      "title":title, 
+      "company":company.text,  
       "position":position.text,
       "region":region.text,
       "url":f"https://weworkremotely.com{url}"
